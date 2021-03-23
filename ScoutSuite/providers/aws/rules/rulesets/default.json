@@ -1,6 +1,21 @@
 {
     "about": "This ruleset consists of numerous rules that are considered standard by NCC Group. The rules enabled range from violations of well-known security best practices to gaps resulting from less-known security implications of provider-specific mechanisms. Additional rules exist, some of them requiring extra-parameters to be configured, and some of them being applicable to a limited number of users.",
     "rules": {
+        "acm-certificate-with-close-expiration-date.json": [
+            {
+                "args": [
+                    "7"
+                ],
+                "enabled": true,
+                "level": "warning"
+            }
+        ],
+        "acm-certificate-with-transparency-logging-disabled.json": [
+            {
+                "enabled": true,
+                "level": "warning"
+            }
+        ],
         "cloudformation-stack-with-role.json": [
             {
                 "enabled": true,
@@ -13,10 +28,22 @@
                 "level": "warning"
             }
         ],
+        "cloudtrail-no-cloudwatch-integration.json": [
+            {
+                "enabled": true,
+                "level": "warning"
+            }
+        ],
         "cloudtrail-no-data-logging.json": [
             {
                 "enabled": true,
                 "level": "warning"
+            }
+        ],
+        "cloudtrail-no-encryption-with-kms.json": [
+            {
+                "enabled": true,
+                "level": "danger"
             }
         ],
         "cloudtrail-no-global-services-logging.json": [
@@ -55,6 +82,12 @@
                 "level": "warning"
             }
         ],
+        "ec2-ami-public.json": [
+            {
+                "enabled": true,
+                "level": "danger"
+            }
+        ],
         "ec2-default-security-group-in-use.json": [
             {
                 "enabled": true,
@@ -65,6 +98,18 @@
             {
                 "enabled": true,
                 "level": "warning"
+            }
+        ],
+        "ec2-ebs-snapshot-not-encrypted.json": [
+            {
+                "enabled": true,
+                "level": "danger"
+            }
+        ],
+        "ec2-ebs-snapshot-public.json": [
+            {
+                "enabled": true,
+                "level": "danger"
             }
         ],
         "ec2-ebs-volume-not-encrypted.json": [
@@ -133,7 +178,7 @@
         ],
         "ec2-security-group-opens-icmp-to-all.json": [
             {
-                "enabled": false,
+                "enabled": true,
                 "level": "warning"
             }
         ],
@@ -307,10 +352,34 @@
                 "level": "warning"
             }
         ],
+        "elb-listener-allowing-cleartext.json": [
+            {
+                "enabled": true,
+                "level": "danger"
+            }
+        ],
         "elb-no-access-logs.json": [
             {
                 "enabled": true,
                 "level": "warning"
+            }
+        ],
+        "elb-older-ssl-policy.json": [
+            {
+                "enabled": true,
+                "level": "danger"
+            }
+        ],
+        "elbv2-http-request-smuggling.json": [
+            {
+                "enabled": true,
+                "level": "danger"
+            }
+        ],
+        "elbv2-listener-allowing-cleartext.json": [
+            {
+                "enabled": true,
+                "level": "danger"
             }
         ],
         "elbv2-no-access-logs.json": [
@@ -403,6 +472,23 @@
         ],
         "iam-inline-policy-allows-non-sts-action.json": [
             {
+                "args": [
+                    "group"
+                ],
+                "enabled": false,
+                "level": "danger"
+            },
+            {
+                "args": [
+                    "role"
+                ],
+                "enabled": false,
+                "level": "danger"
+            },
+            {
+                "args": [
+                    "user"
+                ],
                 "enabled": false,
                 "level": "danger"
             }
@@ -469,6 +555,12 @@
                 "level": "danger"
             }
         ],
+        "iam-managed-policy-allows-full-privileges.json": [
+            {
+                "enabled": true,
+                "level": "danger"
+            }
+        ],
         "iam-managed-policy-allows-non-sts-action.json": [
             {
                 "enabled": false,
@@ -499,25 +591,25 @@
                 "level": "warning"
             }
         ],
+        "iam-no-support-role.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
         "iam-password-policy-expiration-threshold.json": [
             {
                 "args": [
                     "90"
                 ],
-                "enabled": false,
-                "level": "danger"
-            }
-        ],
-        "iam-password-policy-lowercase-required.json": [
-            {
-                "enabled": false,
+                "enabled": true,
                 "level": "danger"
             }
         ],
         "iam-password-policy-minimum-length.json": [
             {
                 "args": [
-                    "8"
+                    "14"
                 ],
                 "enabled": true,
                 "level": "danger"
@@ -565,6 +657,12 @@
                 "level": "warning"
             }
         ],
+        "iam-root-account-no-hardware-mfa.json": [
+            {
+                "enabled": true,
+                "level": "danger"
+            }
+        ],
         "iam-root-account-no-mfa.json": [
             {
                 "enabled": true,
@@ -596,6 +694,15 @@
                 ],
                 "enabled": false,
                 "level": "warning"
+            }
+        ],
+        "iam-unused-credentials-not-disabled.json": [
+            {
+                "args": [
+                    "90"
+                ],
+                "enabled": true,
+                "level": "danger"
             }
         ],
         "iam-user-no-key-rotation.json": [
@@ -634,6 +741,12 @@
                 "level": "danger"
             }
         ],
+        "iam-user-unused-access-key-initial-setup.json": [
+            {
+                "enabled": false,
+                "level": "warning"
+            }
+        ],
         "iam-user-with-multiple-access-keys.json": [
             {
                 "enabled": true,
@@ -662,10 +775,106 @@
                 "level": "danger"
             }
         ],
+        "kms-cmk-rotation-disabled.json": [
+            {
+                "enabled": true,
+                "level": "warning"
+            }
+        ],
+        "logs-no-alarm-aws-configuration-changes.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
+        "logs-no-alarm-cloudtrail-configuration-changes.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
+        "logs-no-alarm-cmk-deletion.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
+        "logs-no-alarm-console-authentication-failures.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
+        "logs-no-alarm-iam-policy-changes.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
+        "logs-no-alarm-nacl-changes.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
+        "logs-no-alarm-network-gateways-changes.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
+        "logs-no-alarm-root-usage.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
+        "logs-no-alarm-route-table-changes.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
+        "logs-no-alarm-s3-policy-changes.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
+        "logs-no-alarm-security-group-changes.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
+        "logs-no-alarm-signin-without-mfa.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
+        "logs-no-alarm-unauthorized-api-calls.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
+        "logs-no-alarm-vpc-changes.json": [
+            {
+                "enabled": false,
+                "level": "danger"
+            }
+        ],
         "rds-instance-backup-disabled.json": [
             {
                 "enabled": true,
                 "level": "danger"
+            }
+        ],
+        "rds-instance-ca-certificate-deprecated.json": [
+            {
+                "enabled": true,
+                "level": "warning"
             }
         ],
         "rds-instance-no-minor-upgrade.json": [
@@ -794,12 +1003,6 @@
                 "level": "warning"
             }
         ],
-        "s3-bucket-website-enabled.json": [
-            {
-                "enabled": false,
-                "level": "warning"
-            }
-        ],
         "s3-bucket-world-acl.json": [
             {
                 "args": [
@@ -894,7 +1097,7 @@
             {
                 "args": [
                     "Get",
-                    "s3:GetObject*"
+                    "s3:Get*"
                 ],
                 "enabled": true,
                 "level": "danger"
@@ -902,7 +1105,7 @@
             {
                 "args": [
                     "List",
-                    "s3:ListBucket*"
+                    "s3:List*"
                 ],
                 "enabled": true,
                 "level": "danger"
@@ -910,14 +1113,6 @@
             {
                 "args": [
                     "Put",
-                    "s3:PutObject*"
-                ],
-                "enabled": true,
-                "level": "danger"
-            },
-            {
-                "args": [
-                    "Manage",
                     "s3:Put*"
                 ],
                 "enabled": true,
@@ -1097,6 +1292,12 @@
             }
         ],
         "vpc-network-acl-not-used.json": [
+            {
+                "enabled": true,
+                "level": "warning"
+            }
+        ],
+        "vpc-routing-tables-with-peering.json": [
             {
                 "enabled": true,
                 "level": "warning"
